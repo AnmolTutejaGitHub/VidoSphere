@@ -24,6 +24,10 @@ function SelectedVideo() {
                         <p className="selected-video-username">{video.uploadedBy.name}</p>
                         <p className="selected-video-subscribers">{video.uploadedBy.Subscribers} Subscribers</p>
                     </div>
+                    <button className='subscribe-btn'>Subscribe</button>
+                </div>
+                <div>
+                    <div className='like-dislike'></div>
                 </div>
 
             </div>

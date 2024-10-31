@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const Video = require('../Video/Video');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -41,9 +40,9 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String
     },
-    watchHistory: [Video.schema],
-    liked: [Video.schema],
-    uploads: [Video.schema],
+    watchHistory: [String], // will have videoid
+    liked: [String],
+    uploads: [String],
     Subscribers: {
         type: Number,
         default: 0

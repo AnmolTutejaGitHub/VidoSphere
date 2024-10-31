@@ -1,0 +1,54 @@
+.home {
+    height: 100%;
+}
+
+.home__side-bar {
+    width: 25%;
+    height: 100%;
+    position: fixed;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding-top: 80px;
+    padding-left: 30px;
+}
+
+.home__main {
+    width: 75%;
+    margin-left: 25%;
+    height: 100%;
+}
+
+.search-videos-input {
+    outline: none;
+    border: 2px solid gray;
+    padding: 0.8rem;
+    width: 80%;
+    border-radius: 10px;
+    color: white;
+    align-self: start;
+}
+
+.sidebar-nav-items {
+    display: flex;
+    gap: 7px;
+    cursor: pointer;
+}
+
+.sidebar-nav-items p {
+    display: inline;
+}
+
+.home__main_header {
+    display: flex;
+    margin-top: 40px;
+    margin-left: 10px;
+    justify-content: space-around;
+}
+
+.home__main_profile {
+    border-radius: 50%;
+    height: 3rem;
+    cursor: pointer;
+}

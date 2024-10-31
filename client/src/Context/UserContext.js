@@ -5,7 +5,7 @@ const UserContext = createContext();
 
 function Provider({ children }) {
     const [user, setUser] = useState(() => {
-        return sessionStorage.getItem('user') || null;
+        return sessionStorage.getItem('user') || "Anmol";
     });
 
     async function decodeToken() {

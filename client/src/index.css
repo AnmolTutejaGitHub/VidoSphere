@@ -11,3 +11,9 @@
     line-height: 1.25rem;
     color: white;
 }
+
+html,
+body,
+#root {
+    height: 100%;
+}

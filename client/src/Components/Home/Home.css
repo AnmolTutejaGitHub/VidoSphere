@@ -52,3 +52,51 @@
     height: 3rem;
     cursor: pointer;
 }
+
+.home__main__video__play {
+    border-radius: 50%;
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.video-title-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.video-uploaded-by {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.video-details {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.video-iframe {
+    border: none;
+}
+
+.allvideos {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.video-views-date {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.video-views-date-div {
+    display: flex;
+    gap: 10px;
+}
+
+.video-thumbnail {
+    width: 100%;
+    object-fit: cover;
+}

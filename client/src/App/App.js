@@ -4,6 +4,7 @@ import Login from '../Components/Login/Login';
 import SignUp from '../Components/SignUp/SignUp';
 import SelectedVideo from '../Components/SelectedVideo/SelectedVideo';
 import Profile from '../Components/Profile/Profile';
+import './App.css';
 
 function App() {
     return (

@@ -5,9 +5,73 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../Context/UserContext';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
     const { user, setUser } = useContext(UserContext);
+    const [allVideos, SetallVideos] = useState([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    async function fetchAllVideos() {
+        const response = await axios.get(`http://localhost:6969/allVideos`);
+        SetallVideos(response.data);
+    }
+
+    useEffect(() => {
+        fetchAllVideos();
+    }, [])
+
+    function timeAgo(dateString) {
+        const now = new Date();
+        const date = new Date(dateString);
+        const seconds = Math.floor((now - date) / 1000);
+
+        const intervals = {
+            year: 31536000,
+            month: 2592000,
+            week: 604800,
+            day: 86400,
+            hour: 3600,
+            minute: 60,
+            second: 1,
+        };
+
+        for (const interval in intervals) {
+            const count = Math.floor(seconds / intervals[interval]);
+            if (count > 0) {
+                return count === 1 ? `${count} ${interval} ago` : `${count} ${interval}s ago`;
+            }
+        }
+        return "just now";
+    }
+
+    const renderVideos = allVideos.map((video) => {
+        return (
+            <div onClick={() => handleVideoClick(video)}>
+                <img
+                    src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} className='video-thumbnail' />
+                <div className='video-details'>
+                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy.name}`} className='home__main__video__play' />
+                    <div className='video-title-div'>
+                        <p>{video.title}</p>
+                        <p className='video-uploaded-by'>{video.uploadedBy.name}</p>
+                        <div className='video-views-date-div'>
+                            <p className='video-views-date'>{video.views} views</p>
+                            <p className='video-views-date'>. {timeAgo(video.updatedAt)}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    });
+
+    function handleVideoClick(video) {
+        navigate(`/SelectedVideo`, { state: video });
+    }
+
     return (
         <div className="home">
             <div className="home__side-bar">
@@ -21,6 +85,8 @@ function Home() {
                     <input placeholder="Search for videos..." className='search-videos-input'></input>
                     <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' /></div>
                 </div>
+
+                <div className='allvideos'>{renderVideos}</div>
             </div>
         </div >
     )

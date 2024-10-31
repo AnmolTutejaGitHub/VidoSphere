@@ -148,15 +148,15 @@ app.post('/fileupload', upload.single('uploadfile'), async (req, res) => {
 
     const username = req.body.user;
     const user = await User.findOne({ name: username });
-    user.uploads.push(req.file.path);
-    await user.save();
-
 
     const title = req.body.title;
     const description = req.body.description;
 
-    const video = new Video({ title: title, description: description, uploadedBy: username, url: req.file.path });
+    const video = new Video({ title: title, description: description, uploadedBy: user, url: req.file.path });
     await video.save();
+
+    user.uploads.push(video);
+    await user.save();
 
     res.send({ message: 'File uploaded successfully!', url: req.file.path });
 });

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const commentSchema = require('../Comments/Comment');
+const User = require('../User/User');
 
 const videoSchema = new mongoose.Schema({
     url: {
@@ -14,7 +15,7 @@ const videoSchema = new mongoose.Schema({
         trim: true,
     },
     uploadedBy: {
-        type: String // user_id
+        type: User.schema
     },
     likes: {
         type: Number,
@@ -28,6 +29,9 @@ const videoSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    thumbnail: {
+        type: String
     }
 
 })

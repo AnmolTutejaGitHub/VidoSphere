@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcrypt');
+const commentSchema = require('../Comments/Comment');
 
 const videoSchema = new mongoose.Schema({
     url: {

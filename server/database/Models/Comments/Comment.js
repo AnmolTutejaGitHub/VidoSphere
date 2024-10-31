@@ -8,6 +8,7 @@ const commentSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    replies: [String],
     uploadedAt: {
         type: Date,
         default: Date.now
@@ -21,7 +22,6 @@ commentSchema.pre('save', function (next) {
     next();
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
-module.exports = Comment;
+module.exports = commentSchema;
 
 

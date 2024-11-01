@@ -159,9 +159,7 @@ const upload = multer({
     }
 });
 
-app.post('/fileupload', cors(), upload.single('uploadfile'), async (req, res) => {
-
-    res.set('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL}`);
+app.post('/fileupload', upload.single('uploadfile'), async (req, res) => {
 
     const username = req.body.user;
     const user = await User.findOne({ name: username });

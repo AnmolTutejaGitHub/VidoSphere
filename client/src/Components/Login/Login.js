@@ -41,7 +41,7 @@ function Login() {
     return (<div className="login-page">
         <div className='login-div'>
             <form className='login' onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
-                <p>Login & Join Rooms</p>
+                <p>Login & Watch</p>
                 <input placeholder="Enter Username" onChange={(e) => { setEnteredUser(e.target.value) }} className='login-input' required></input>
                 <input placeholder="Enter Email" onChange={(e) => { setEnteredEmail(e.target.value) }} className='login-input' required></input>
                 <input placeholder="Enter Password" onChange={(e) => { setEnteredPassword(e.target.value) }} className='login-input' required></input>

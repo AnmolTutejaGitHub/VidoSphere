@@ -45,7 +45,7 @@ function SignUp() {
             <ToastContainer className="toast-container" />
             <div className='login-div'>
                 <form className='login' onSubmit={(e) => { e.preventDefault(); SignUp(); }}>
-                    <p>Signup & Join Rooms</p>
+                    <p>Signup & Watch Videos</p>
                     <input placeholder="Enter Username" onChange={(e) => { setEnteredUser(e.target.value) }} className='login-input' required></input>
                     <input placeholder="Enter Email" onChange={(e) => { setEnteredEmail(e.target.value) }} className='login-input' required></input>
                     <input placeholder="Set Password" onChange={(e) => { setEnteredPassword(e.target.value) }} className='login-input' required></input>

@@ -50,7 +50,7 @@ function Home() {
 
     const renderVideos = allVideos.map((video) => {
         return (
-            <div onClick={() => handleVideoClick(video)}>
+            <div onClick={() => handleVideoClick(video)} className='video-div'>
                 <img
                     src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} className='video-thumbnail' />
                 <div className='video-details'>

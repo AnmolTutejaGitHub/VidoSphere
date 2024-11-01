@@ -100,3 +100,16 @@
     width: 100%;
     object-fit: cover;
 }
+
+.video-div {
+    cursor: pointer;
+    width: 290px;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    max-width: 290px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

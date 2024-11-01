@@ -27,6 +27,7 @@
 
 .selected-video-subscribers {
     color: gray;
+    font-size: 13px;
 }
 
 .creator-detail {
@@ -67,4 +68,74 @@
     font-weight: bolder;
     position: relative;
     top: 4px;
+}
+
+.comment-input {
+    border: none;
+    outline: none;
+    width: 80%;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.comment-input:focus {
+    border-bottom: 2px solid white;
+}
+
+.comment-btn {
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #3DA6FF;
+    color: black;
+    border: none;
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+.comments-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 70%;
+}
+
+.comment-user-pic {
+    border-radius: 50%;
+    height: 2.5rem;
+}
+
+.comment-div {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-detail {
+    display: flex;
+    gap: 5px;
+}
+
+.comment-time {
+    color: grey;
+    font-size: 13px;
+}
+
+.video-description {
+    margin-top: 10px;
+    background-color: #272727;
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    width: 70%;
+}
+
+.video-description-details {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    background-color: #272727;
+    margin-bottom: 10px;
+}
+
+.desc-bg {
+    background-color: #272727;
 }

@@ -69,7 +69,9 @@ function Profile() {
             <input type="text" placeholder='Enter title...' required onChange={(e) => setTitle(e.target.value)} />
             <input type="text" placeholder="Enter description..." required onChange={(e) => setDescription(e.target.value)} />
             <input type="file" name="uploadfile" id="uploadfile" required />
-            <button type="submit">Upload</button>
+            <div className='upload-btn-div'>
+                <button type="submit" className='subscribed'>Upload</button>
+            </div>
         </form>
     </div>)
 }

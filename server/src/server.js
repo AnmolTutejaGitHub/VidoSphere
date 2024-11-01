@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const User = require('../database/Models/User/User');
-const Video = require('../database/Models/Video/Video')
+const Video = require('../database/Models/Video/Video');
 
 app.use(cors({
     origin: `http://localhost:3000`,
@@ -155,7 +155,7 @@ app.post('/fileupload', upload.single('uploadfile'), async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    const video = new Video({ title: title, description: description, uploadedBy: user, url: req.file.path });
+    const video = new Video({ title: title, description: description, uploadedBy: username, url: req.file.path });
     await video.save();
 
     res.send({ message: 'File uploaded successfully!', url: req.file.path });
@@ -215,9 +215,38 @@ app.post('/isSubscribed', async (req, res) => {
 app.post('/getSubscribers', async (req, res) => {
     const { creator } = req.body;
     const Creator = await User.findOne({ name: creator });
-    res.status(200).send(Creator.Subscribers);
-})
 
+    if (!Creator) {
+        return res.sendStatus(404);
+    }
+
+    res.status(200).send(Creator.Subscribers.toString());
+});
+
+app.post('/addComments', async (req, res) => {
+    const { video_id, comment, user } = req.body;
+
+    try {
+        const video = await Video.findById(video_id);
+
+        if (!video) {
+            return res.status(404).send({ message: 'Video not found' });
+        }
+
+        video.comments.push({ user, content: comment });
+        await video.save();
+        res.status(200).send(video.comments);
+    } catch (e) {
+        console.error('Error adding comment:', e);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+app.post('/getComments', async (req, res) => {
+    const { video_id } = req.body;
+    const video = await Video.findById(video_id);
+    res.status(200).send(video.comments);
+})
 
 
 

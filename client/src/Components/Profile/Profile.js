@@ -109,6 +109,8 @@ function Profile() {
                 </div>
             </form>
             <div className='important-info'>*Accepted Formats are 'mp4', 'mov', 'avi', 'mkv', 'wmv', 'flv' And file Should not exceed 100MB</div>
+            <div className='important-info'> ** lol Vercel’s request body limit is around 4 MB for serverless functions.
+                Unless I change the deployment server , Video upload limit is 4MB.</div>
         </div>
     </div>)
 }

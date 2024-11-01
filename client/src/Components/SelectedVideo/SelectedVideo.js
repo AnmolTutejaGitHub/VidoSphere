@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './SelectedVideo.css';
 import ReactPlayer from 'react-player';
 import { useState } from 'react';
@@ -11,11 +11,16 @@ import { AiFillLike } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaHome } from "react-icons/fa";
+import { FaHistory } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { MdFileUpload } from "react-icons/md";
 
 function SelectedVideo() {
 
     const notify = (text) => toast.success(text);
     const location = useLocation();
+    const navigate = useNavigate();
     const video = location.state;
     const [subscribed, setSubscribed] = useState(false);
     const { user, setUser } = useContext(UserContext);
@@ -184,7 +189,12 @@ function SelectedVideo() {
         notify("Added to watch Later");
     }
 
-
+    function logout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser('');
+        navigate('/');
+    }
 
     useEffect(() => {
         isSubscribed();
@@ -194,61 +204,72 @@ function SelectedVideo() {
     }, [])
 
     return (
-        <div className="selected-video-div">
-            <ToastContainer className="toast-container" />
-            <ReactPlayer url={video.url} height="65%" width="70%" controls={true} playing={false}
-                config={{
-                    youtube: {
-                        playerVars: { showinfo: 1 }
-                    }
-                }}
-            />
-            <div className='selected-video-details'>
-                <p className="selected-video-title">{video.title}</p>
-                <div className='creator-detail-div'>
-                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='selected__video__play' />
-                    <div className='creator-detail'>
-                        <p className="selected-video-username">{video.uploadedBy}</p>
-                        <p className="selected-video-subscribers">{subscribers} Subscribers</p>
-                    </div>
-                    <button className={!subscribed ? 'subscribe-btn' : 'subscribed'} onClick={subscribe}>{subscribed && <CiBellOn className='bell-icon' />} {subscribed ? 'Subscribed' : 'Subscribe'}</button>
-                    <div className='like-div'>
-                        <div onClick={likeVideo}>
-                            {!liked && <AiOutlineLike className='like-unlike' />}
-                            {liked && <AiFillLike className='like-unlike' />}
-                        </div>
-                        <MdOutlineWatchLater className='watch-later-selected' onClick={watchLater} />
-                    </div>
-                </div>
+        <div className='home'>
+            <div className="home__side-bar">
+                <div className='sidebar-nav-items nav-current' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
+                <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")} ><MdOutlineWatchLater /><p>Watch Later</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
+                <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
             </div>
 
-            <div className='comments'>
-                <p>{comments.length} Comments</p>
-                <form onSubmit={handleCommentSubmit} className="comment-form">
-                    <input
-                        placeholder="Add a Comment ..."
-                        className="comment-input"
-                        value={comment}
-                        onChange={handleCommentInputChange}
-                    />
-                    {showCommentButton && (
-                        <button type="submit" className="comment-btn">
-                            Submit
-                        </button>
-                    )}
-                </form>
-
-                <div className='video-description'>
-                    <div className='video-description-details'>
-                        <p className='desc-bg'>{video.views} views</p>
-                        <p className='desc-bg'>Published on {formatDate(video.updatedAt)}</p>
-                    </div>
-                    <div className='desc-bg'>
-                        {video.description}
+            <div className="selected-video-div home__main">
+                <ToastContainer className="toast-container" />
+                <ReactPlayer url={video.url} height="65%" width="95%" controls={true} playing={false}
+                    config={{
+                        youtube: {
+                            playerVars: { showinfo: 1 }
+                        }
+                    }}
+                />
+                <div className='selected-video-details'>
+                    <p className="selected-video-title">{video.title}</p>
+                    <div className='creator-detail-div'>
+                        <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='selected__video__play' />
+                        <div className='creator-detail'>
+                            <p className="selected-video-username">{video.uploadedBy}</p>
+                            <p className="selected-video-subscribers">{subscribers} Subscribers</p>
+                        </div>
+                        <button className={!subscribed ? 'subscribe-btn' : 'subscribed'} onClick={subscribe}>{subscribed && <CiBellOn className='bell-icon' />} {subscribed ? 'Subscribed' : 'Subscribe'}</button>
+                        <div className='like-div'>
+                            <div onClick={likeVideo}>
+                                {!liked && <AiOutlineLike className='like-unlike' />}
+                                {liked && <AiFillLike className='like-unlike' />}
+                            </div>
+                            <MdOutlineWatchLater className='watch-later-selected' onClick={watchLater} />
+                        </div>
                     </div>
                 </div>
 
-                <div className='comments-div'>{renderComments}</div>
+                <div className='comments'>
+                    <p className='comment-count'>{comments.length} Comments</p>
+                    <form onSubmit={handleCommentSubmit} className="comment-form">
+                        <input
+                            placeholder="Add a Comment ..."
+                            className="comment-input"
+                            value={comment}
+                            onChange={handleCommentInputChange}
+                        />
+                        {showCommentButton && (
+                            <button type="submit" className="comment-btn">
+                                Submit
+                            </button>
+                        )}
+                    </form>
+
+                    <div className='video-description'>
+                        <div className='video-description-details'>
+                            <p className='desc-bg'>{video.views} views</p>
+                            <p className='desc-bg'>Published on {formatDate(video.updatedAt)}</p>
+                        </div>
+                        <div className='desc-bg'>
+                            {video.description}
+                        </div>
+                    </div>
+
+                    <div className='comments-div'>{renderComments}</div>
+                </div>
             </div>
         </div>
     )

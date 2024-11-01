@@ -1,14 +1,10 @@
 .profile {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding-top: 75px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
     justify-content: center;
-    width: 100%;
 }
 
 .uploadform {
@@ -49,4 +45,14 @@
     top: -40px;
     right: 10px;
     cursor: pointer;
+}
+
+.important-info {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: rgb(226, 6, 6);
+}
+
+.paddingTop {
+    padding-top: 120px;
 }

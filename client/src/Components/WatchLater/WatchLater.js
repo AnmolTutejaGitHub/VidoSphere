@@ -5,6 +5,12 @@ import axios from 'axios';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import './WatchLater.css';
+import { FaHome } from "react-icons/fa";
+import { FaHistory } from "react-icons/fa";
+import { MdOutlineWatchLater } from "react-icons/md";
+import { AiOutlineLike } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
+import { MdFileUpload } from "react-icons/md";
 
 function WatchLater() {
     const { user, setUser } = useContext(UserContext);
@@ -45,6 +51,13 @@ function WatchLater() {
         getWatchLater();
     }, [])
 
+    function logout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser('');
+        navigate('/');
+    }
+
     const renderWatchList = watchLater.map((video) => {
         return <div className="watch-later-video">
             <img
@@ -58,9 +71,23 @@ function WatchLater() {
         </div>
     })
 
-    return (<div className="watch-later-video-div">
-        {watchLater.length === 0 && <div>Nothing in WatchList</div>}
-        {renderWatchList}
-    </div>);
+    return (
+        <div>
+            <div className="home__side-bar paddingTop">
+                <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
+                <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
+                <div className='sidebar-nav-items nav-current' onClick={() => navigate("/watchLater")}><MdOutlineWatchLater /><p>Watch Later</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
+                <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
+            </div>
+
+            <div className="watch-later-video-div home__main">
+                {watchLater.length === 0 && <div>Nothing in WatchList</div>}
+                {renderWatchList}
+            </div>
+
+        </div>
+    );
 }
 export default WatchLater;

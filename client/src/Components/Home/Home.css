@@ -115,3 +115,8 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.nav-current {
+    background-color: #272727;
+    padding: 10px;
+}

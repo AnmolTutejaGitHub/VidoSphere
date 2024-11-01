@@ -93,7 +93,7 @@ function Home() {
     return (
         <div className="home">
             <div className="home__side-bar">
-                <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
+                <div className='sidebar-nav-items nav-current' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
                 <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
                 <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")} ><MdOutlineWatchLater /><p>Watch Later</p></div>
                 <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
@@ -102,7 +102,7 @@ function Home() {
             </div>
             <div className="home__main">
                 <div className='home__main_header'>
-                    <input placeholder="Search for videos..." className='search-videos-input'></input>
+                    <input placeholder="Search for videos... (soon)" className='search-videos-input'></input>
                     <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate("/profile")} /></div>
                 </div>
 

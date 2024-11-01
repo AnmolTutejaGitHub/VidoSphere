@@ -50,3 +50,21 @@
     font-weight: bolder;
     cursor: pointer;
 }
+
+.subscribed {
+    border: none;
+    background-color: #4C4A48;
+    border-radius: 50px;
+    padding: 0.7rem;
+    font-weight: bolder;
+    cursor: pointer;
+    color: white;
+}
+
+.bell-icon {
+    font-size: 1.5rem;
+    background-color: #4C4A48;
+    font-weight: bolder;
+    position: relative;
+    top: 4px;
+}

@@ -15,7 +15,7 @@ const videoSchema = new mongoose.Schema({
         trim: true,
     },
     uploadedBy: {
-        type: User.schema
+        type: String
     },
     likes: {
         type: Number,

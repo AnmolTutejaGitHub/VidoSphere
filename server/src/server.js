@@ -166,6 +166,58 @@ app.get("/allVideos", async (req, res) => {
     res.status(200).send(all);
 })
 
+app.post('/subscribe', async (req, res) => {
+
+    const { subscribed, user, creator } = req.body;
+
+    const subscriber = await User.findOne({ name: user });
+    const Creator = await User.findOne({ name: creator });
+
+    if (subscribed) {
+        subscriber.Subscriptions.push(Creator.name);
+        Creator.Subscribers += 1;
+    }
+
+    if (!subscribed) {
+        subscriber.Subscriptions = subscriber.Subscriptions.filter(sub => sub !== Creator.name);
+        Creator.Subscribers -= 1;
+    }
+
+    //console.log(Creator.Subscribers);
+
+    await subscriber.save();
+    await Creator.save();
+
+    res.status(200).send('Done');
+})
+
+app.post('/isSubscribed', async (req, res) => {
+    const { creator, user } = req.body;
+    const subscriber = await User.findOne({ name: user });
+
+    if (!subscriber) {
+        return res.status(404).send('Subscriber not found');
+    }
+
+
+    const isSubscribed = subscriber.Subscriptions.some(sub =>
+        sub === creator
+    );
+
+    if (isSubscribed) {
+        return res.status(200).send(true);
+    } else {
+        return res.status(400).send(false);
+    }
+});
+
+
+app.post('/getSubscribers', async (req, res) => {
+    const { creator } = req.body;
+    const Creator = await User.findOne({ name: creator });
+    res.status(200).send(Creator.Subscribers);
+})
+
 
 
 

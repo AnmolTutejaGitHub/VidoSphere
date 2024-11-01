@@ -46,7 +46,8 @@ const userSchema = new mongoose.Schema({
     Subscribers: {
         type: Number,
         default: 0
-    }
+    },
+    Subscriptions: [String]
 })
 
 userSchema.pre('save', async function (next) {

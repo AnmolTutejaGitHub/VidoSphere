@@ -13,7 +13,7 @@ function Profile() {
     const navigate = useNavigate();
 
     async function getUserInfo() {
-        const response = await axios.post('http://localhost:6969/getuser', {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getuser`, {
             user: user
         })
         setUserObj(response.data);
@@ -43,7 +43,7 @@ function Profile() {
 
         try {
             setUploading(true);
-            const response = await fetch(`http://localhost:6969/fileupload`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/fileupload`, {
                 method: 'POST',
                 body: formData
             });

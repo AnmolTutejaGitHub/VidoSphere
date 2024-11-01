@@ -18,7 +18,7 @@ function Home() {
     const location = useLocation();
 
     async function fetchAllVideos() {
-        const response = await axios.get(`http://localhost:6969/allVideos`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/allVideos`);
         SetallVideos(response.data);
     }
 
@@ -78,7 +78,7 @@ function Home() {
     }
 
     async function updateVideoViews(video) {
-        await axios.post('http://localhost:6969/updateViews', {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/updateViews`, {
             video_id: video._id
         })
     }

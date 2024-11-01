@@ -11,7 +11,7 @@ function Provider({ children }) {
     async function decodeToken() {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:6969/verifytokenAndGetUsername`, {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/verifytokenAndGetUsername`, {
                 token: token
             });
             if (response.status === 200) setUser(response.data.user);

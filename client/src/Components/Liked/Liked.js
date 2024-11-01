@@ -25,7 +25,7 @@ function Liked() {
     }, [])
 
     async function getLikedVideos() {
-        const response = await axios.post('http://localhost:6969/getLikedVideos', {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getLikedVideos`, {
             username: user
         });
         setLiked(response.data);
@@ -88,7 +88,7 @@ function Liked() {
     }
 
     async function updateVideoViews(video) {
-        await axios.post('http://localhost:6969/updateViews', {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/updateViews`, {
             video_id: video._id
         })
     }

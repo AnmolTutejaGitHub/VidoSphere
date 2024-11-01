@@ -18,7 +18,7 @@ function SignUp() {
     async function SignUp() {
         const notify = () => toast.success("Sign up Successful!");
         try {
-            const response = await axios.post(`http://localhost:6969/signups`, {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signups`, {
                 email: EnteredEmail,
                 password: EnteredPassword,
                 name: EnteredUser

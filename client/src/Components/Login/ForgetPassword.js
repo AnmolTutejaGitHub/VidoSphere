@@ -30,7 +30,7 @@ function ForgetPassword() {
         e.preventDefault();
         const newOTP = generateOTP();
         try {
-            await axios.post(`http://localhost:6969/otp`, { email, otp: newOTP });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/otp`, { email, otp: newOTP });
             setError("");
             setgeneratedotp(newOTP);
             notify("Otp sent Successfully!");
@@ -50,7 +50,7 @@ function ForgetPassword() {
         if (enteredOTP.trim() != generatedotp) return setError("OTP doesn't match");
 
         try {
-            const response = await axios.post(`http://localhost:6969/resetpassword`, {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/resetpassword`, {
                 email,
                 password
             });

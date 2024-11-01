@@ -25,7 +25,7 @@ function SelectedVideo() {
     const [liked, setLiked] = useState(false);
 
     async function subscribe() {
-        await axios.post('http://localhost:6969/subscribe', {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/subscribe`, {
             videoId: video.id,
             subscribed: !subscribed,
             user: user,
@@ -39,7 +39,7 @@ function SelectedVideo() {
 
     async function isSubscribed() {
         try {
-            const response = await axios.post('http://localhost:6969/isSubscribed', {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/isSubscribed`, {
                 creator: video.uploadedBy,
                 user: user
             })
@@ -50,7 +50,7 @@ function SelectedVideo() {
     }
 
     async function getSubscribers() {
-        const response = await axios.post('http://localhost:6969/getSubscribers', {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getSubscribers`, {
             creator: video.uploadedBy
         })
         Setsubscribers(Number(response.data));
@@ -72,7 +72,7 @@ function SelectedVideo() {
 
     async function AddComment(comment) {
         try {
-            const response = await axios.post('http://localhost:6969/addComments', {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addComments`, {
                 video_id: video._id,
                 user: user,
                 comment: comment
@@ -84,7 +84,7 @@ function SelectedVideo() {
     }
 
     async function getPrevComments() {
-        const response = await axios.post('http://localhost:6969/getComments', {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getComments`, {
             video_id: video._id
         })
         setComments(response.data);
@@ -145,7 +145,7 @@ function SelectedVideo() {
     async function likeVideo() {
         try {
 
-            const response = await axios.post('http://localhost:6969/likeVideo', {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/likeVideo`, {
                 video_id: video._id,
                 like: !liked,
                 username: user
@@ -163,7 +163,7 @@ function SelectedVideo() {
 
     async function isLiked() {
         try {
-            const response = await axios.post('http://localhost:6969/islikeVideo', {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/islikeVideo`, {
                 video_id: video._id,
                 username: user
             })

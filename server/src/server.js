@@ -13,7 +13,7 @@ const User = require('../database/Models/User/User');
 const Video = require('../database/Models/Video/Video');
 
 app.use(cors({
-    origin: `http://localhost:3000`,
+    origin: `${process.env.FRONTEND_URL}`,
     credentials: true
 }));
 

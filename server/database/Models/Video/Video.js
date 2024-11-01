@@ -28,18 +28,14 @@ const videoSchema = new mongoose.Schema({
     comments: [commentSchema],
     updatedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        immutable: true
     },
     thumbnail: {
         type: String
     }
 
 })
-
-videoSchema.pre('save', function (next) {
-    this.updatedAt = Date.now();
-    next();
-});
 
 const Video = mongoose.model('Video', videoSchema);
 module.exports = Video;

@@ -6,6 +6,9 @@ import { CiBellOn } from "react-icons/ci";
 import { useContext, useEffect } from 'react';
 import UserContext from '../../Context/UserContext';
 import axios from 'axios';
+import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
+import { MdOutlineWatchLater } from "react-icons/md";
 
 function SelectedVideo() {
 
@@ -18,6 +21,8 @@ function SelectedVideo() {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [showCommentButton, setCommentShowButton] = useState(false);
+
+    const [liked, setLiked] = useState(false);
 
     async function subscribe() {
         await axios.post('http://localhost:6969/subscribe', {
@@ -136,10 +141,43 @@ function SelectedVideo() {
         </div>
     })
 
+
+    async function likeVideo() {
+        try {
+
+            const response = await axios.post('http://localhost:6969/likeVideo', {
+                video_id: video._id,
+                like: !liked,
+                username: user
+            });
+
+            if (response.status === 200) {
+                setLiked(!liked);
+            } else {
+                console.error("Failed to like/unlike the video. Status:", response.status);
+            }
+        } catch (error) {
+            console.error("Error liking/unliking video:", error);
+        }
+    }
+
+    async function isLiked() {
+        try {
+            const response = await axios.post('http://localhost:6969/islikeVideo', {
+                video_id: video._id,
+                username: user
+            })
+            if (response.status == 200) setLiked(true);
+        } catch (e) {
+            console.log("Not liked")
+        }
+    }
+
     useEffect(() => {
         isSubscribed();
         getSubscribers();
         getPrevComments();
+        isLiked();
     }, [])
 
     return (
@@ -160,9 +198,13 @@ function SelectedVideo() {
                         <p className="selected-video-subscribers">{subscribers} Subscribers</p>
                     </div>
                     <button className={!subscribed ? 'subscribe-btn' : 'subscribed'} onClick={subscribe}>{subscribed && <CiBellOn className='bell-icon' />} {subscribed ? 'Subscribed' : 'Subscribe'}</button>
-                </div>
-                <div>
-                    <div className='like-dislike'></div>
+                    <div className='like-div'>
+                        <div onClick={likeVideo}>
+                            {!liked && <AiOutlineLike className='like-unlike' />}
+                            {liked && <AiFillLike className='like-unlike' />}
+                        </div>
+                        <MdOutlineWatchLater className='watch-later-selected' />
+                    </div>
                 </div>
             </div>
 

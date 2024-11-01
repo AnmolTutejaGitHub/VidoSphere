@@ -66,8 +66,8 @@ function Profile() {
         {uploading && <p>uploading...</p>}
 
         <form onSubmit={handleFileSubmit} encType="multipart/form-data" className="uploadform">
-            <input type="text" placeholder='Enter title...' required onChange={(e) => setTitle(e.target.value)} />
-            <input type="text" placeholder="Enter description..." required onChange={(e) => setDescription(e.target.value)} />
+            <input type="text" placeholder='Enter title...' required onChange={(e) => setTitle(e.target.value)} className='upload-input' />
+            <input type="text" placeholder="Enter description..." required onChange={(e) => setDescription(e.target.value)} className='upload-input' />
             <input type="file" name="uploadfile" id="uploadfile" required />
             <div className='upload-btn-div'>
                 <button type="submit" className='subscribed'>Upload</button>

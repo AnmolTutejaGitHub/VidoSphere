@@ -31,3 +31,13 @@
     justify-content: center;
     width: 50%;
 }
+
+.upload-input {
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+    width: 100%;
+}
+
+.upload-input:focus {
+    border-bottom: 2px solid white;
+}

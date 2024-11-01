@@ -248,7 +248,46 @@ app.post('/getComments', async (req, res) => {
     res.status(200).send(video.comments);
 })
 
+app.post('/updateViews', async (req, res) => {
+    const { video_id } = req.body;
+    const video = await Video.findById(video_id);
+    video.views += 1;
+    video.save();
+    res.status(200).send("updated");
+})
 
+app.post('/likeVideo', async (req, res) => {
+    const { video_id, like, username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    if (like) {
+        user.liked.push(video_id.toString());
+    } else {
+        user.liked = user.liked.filter(id => id !== video_id.toString());
+    }
+    await user.save();
+    res.status(200).send("updated");
+})
+
+app.post('/islikeVideo', async (req, res) => {
+    const { video_id, username } = req.body;
+    const user = await User.findOne({ name: username });
+    if (user.liked.includes(video_id.toString())) return res.status(200).send("liked");
+    res.status(404).send("Not Liked");
+})
+
+app.post('/getLikedVideos', async (req, res) => {
+    const { username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    const videos = await Promise.all(
+        user.liked.map(async (videoId) => {
+            return await Video.findById(videoId);
+        })
+    );
+
+    res.status(200).send(videos);
+})
 
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)

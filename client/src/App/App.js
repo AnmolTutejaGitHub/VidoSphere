@@ -4,6 +4,7 @@ import Login from '../Components/Login/Login';
 import SignUp from '../Components/SignUp/SignUp';
 import SelectedVideo from '../Components/SelectedVideo/SelectedVideo';
 import Profile from '../Components/Profile/Profile';
+import Liked from '../Components/Liked/Liked';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/SelectedVideo" element={<SelectedVideo />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/like" element={<Liked />} />
                 </Routes>
             </BrowserRouter>
         </div>

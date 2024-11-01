@@ -5,6 +5,8 @@ import SignUp from '../Components/SignUp/SignUp';
 import SelectedVideo from '../Components/SelectedVideo/SelectedVideo';
 import Profile from '../Components/Profile/Profile';
 import Liked from '../Components/Liked/Liked';
+import OTPValidation from '../Components/OTPValidation/OTPValidation';
+import ForgetPassword from '../Components/Login/ForgetPassword';
 import './App.css';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
                     <Route path="/SelectedVideo" element={<SelectedVideo />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/like" element={<Liked />} />
+                    <Route path="/OTPValidation" element={<OTPValidation />}></Route>
+                    <Route path="forgetpassword" element={<ForgetPassword />} />
                 </Routes>
             </BrowserRouter>
         </div>

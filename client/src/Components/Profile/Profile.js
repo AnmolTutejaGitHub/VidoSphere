@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../Context/UserContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
@@ -9,6 +10,7 @@ function Profile() {
     const [uploading, setUploading] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
 
     async function getUserInfo() {
         const response = await axios.post('http://localhost:6969/getuser', {
@@ -57,7 +59,15 @@ function Profile() {
         }
     };
 
+    function logout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser('');
+        navigate('/');
+    }
+
     return (<div className='profile'>
+        <button onClick={() => logout()} className='profile-logout nav-btn'>logout</button>
         <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' /></div>
         <p>{userObj?.name}</p>
         <p>{userObj?.email}</p>

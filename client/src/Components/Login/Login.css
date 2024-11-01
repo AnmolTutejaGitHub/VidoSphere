@@ -1,0 +1,60 @@
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    background-color: #272727;
+    padding: 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-input {
+    padding: 0.5rem;
+    outline: none;
+    color: black;
+}
+
+.login-div {
+    margin-top: 12%;
+    width: 300px;
+}
+
+.error {
+    color: red;
+}
+
+.login-link {
+    color: #3DA6FF;
+}
+
+.forget-pass {
+    cursor: pointer;
+}
+
+.forget-password-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-btn {
+    color: black;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 9px;
+    border-radius: 7px;
+    border: none;
+}
+
+.toast-container {
+    color: black !important;
+}
+
+.toast-container * {
+    color: inherit;
+}

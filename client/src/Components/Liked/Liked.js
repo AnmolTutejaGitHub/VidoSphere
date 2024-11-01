@@ -6,8 +6,9 @@ import { FaHome } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
-import { useLocation } from 'react-router-dom';
+import { MdLogout } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { MdFileUpload } from "react-icons/md";
 
 
 // don't go on namings as i reused my home component
@@ -17,6 +18,11 @@ function Liked() {
     const { user, setUser } = useContext(UserContext);
     const [likedVideos, setLiked] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) navigate("/");
+        return;
+    }, [])
 
     async function getLikedVideos() {
         const response = await axios.post('http://localhost:6969/getLikedVideos', {
@@ -87,13 +93,22 @@ function Liked() {
         })
     }
 
+    function logout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser('');
+        navigate('/');
+    }
+
 
     return (<div className="home">
         <div className="home__side-bar">
             <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
             <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
-            <div className='sidebar-nav-items'><MdOutlineWatchLater /><p>Watch Later</p></div>
+            <div className='sidebar-nav-items'><MdOutlineWatchLater /><p>Watch Later</p><p className='soon'>soon</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
+            <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
+            <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
         </div>
         <div className="home__main">
             <div className='home__main_header'>

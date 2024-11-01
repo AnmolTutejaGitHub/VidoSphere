@@ -164,3 +164,8 @@
     font-size: 2rem;
     cursor: pointer;
 }
+
+.comment-input {
+    background-color: #0F0F0F;
+    ;
+}

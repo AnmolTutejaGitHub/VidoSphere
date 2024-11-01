@@ -8,6 +8,8 @@ import UserContext from '../../Context/UserContext';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { MdFileUpload } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 function Home() {
     const { user, setUser } = useContext(UserContext);
@@ -21,6 +23,7 @@ function Home() {
     }
 
     useEffect(() => {
+        if (!user) navigate("/");
         fetchAllVideos();
     }, [])
 
@@ -80,13 +83,22 @@ function Home() {
         })
     }
 
+    function logout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser('');
+        navigate('/');
+    }
+
     return (
         <div className="home">
             <div className="home__side-bar">
                 <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
                 <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
-                <div className='sidebar-nav-items'><MdOutlineWatchLater /><p>Watch Later</p></div>
+                <div className='sidebar-nav-items'><MdOutlineWatchLater /><p>Watch Later</p><p className='soon'>soon</p></div>
                 <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
+                <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
+                <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
             </div>
             <div className="home__main">
                 <div className='home__main_header'>

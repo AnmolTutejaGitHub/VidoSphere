@@ -7,6 +7,7 @@ import Profile from '../Components/Profile/Profile';
 import Liked from '../Components/Liked/Liked';
 import OTPValidation from '../Components/OTPValidation/OTPValidation';
 import ForgetPassword from '../Components/Login/ForgetPassword';
+import WatchLater from '../Components/WatchLater/WatchLater';
 import './App.css';
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/like" element={<Liked />} />
                     <Route path="/OTPValidation" element={<OTPValidation />}></Route>
-                    <Route path="forgetpassword" element={<ForgetPassword />} />
+                    <Route path="/forgetpassword" element={<ForgetPassword />} />
+                    <Route path="/watchLater" element={<WatchLater />} />
                 </Routes>
             </BrowserRouter>
         </div>

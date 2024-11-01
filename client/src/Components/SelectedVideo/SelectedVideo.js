@@ -9,9 +9,12 @@ import axios from 'axios';
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { MdOutlineWatchLater } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SelectedVideo() {
 
+    const notify = (text) => toast.success(text);
     const location = useLocation();
     const video = location.state;
     const [subscribed, setSubscribed] = useState(false);
@@ -173,6 +176,16 @@ function SelectedVideo() {
         }
     }
 
+    async function watchLater() {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addWatchLater`, {
+            video_id: video._id,
+            username: user,
+        })
+        notify("Added to watch Later");
+    }
+
+
+
     useEffect(() => {
         isSubscribed();
         getSubscribers();
@@ -182,6 +195,7 @@ function SelectedVideo() {
 
     return (
         <div className="selected-video-div">
+            <ToastContainer className="toast-container" />
             <ReactPlayer url={video.url} height="65%" width="70%" controls={true} playing={false}
                 config={{
                     youtube: {
@@ -203,7 +217,7 @@ function SelectedVideo() {
                             {!liked && <AiOutlineLike className='like-unlike' />}
                             {liked && <AiFillLike className='like-unlike' />}
                         </div>
-                        <MdOutlineWatchLater className='watch-later-selected' />
+                        <MdOutlineWatchLater className='watch-later-selected' onClick={watchLater} />
                     </div>
                 </div>
             </div>

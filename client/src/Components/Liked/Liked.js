@@ -105,7 +105,7 @@ function Liked() {
         <div className="home__side-bar">
             <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
             <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
-            <div className='sidebar-nav-items'><MdOutlineWatchLater /><p>Watch Later</p><p className='soon'>soon</p></div>
+            <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")}><MdOutlineWatchLater /><p>Watch Later</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
             <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>

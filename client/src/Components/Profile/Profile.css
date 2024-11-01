@@ -37,7 +37,7 @@
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s;
     width: 100%;
-    background-color: black;
+    background-color: #0F0F0F;
 }
 
 .upload-input:focus {

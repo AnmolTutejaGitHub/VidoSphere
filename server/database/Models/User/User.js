@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
     watchHistory: [String], // will have videoid
     liked: [String],
     uploads: [String],
+    watchList: [String],
     Subscribers: {
         type: Number,
         default: 0

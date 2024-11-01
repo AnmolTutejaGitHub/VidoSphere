@@ -304,6 +304,40 @@ app.post('/getLikedVideos', async (req, res) => {
     res.status(200).send(videos);
 })
 
+app.post('/addWatchLater', async (req, res) => {
+    const { video_id, username } = req.body;
+    const user = await User.findOne({ name: username });
+    if (!user.watchList.includes(video_id.toString())) {
+        user.watchList.push(video_id.toString());
+        await user.save();
+    }
+    res.status(200).send("added");
+})
+
+app.post('/getWatchList', async (req, res) => {
+    const { username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    const videos = await Promise.all(
+        user.watchList.map(async (videoId) => {
+            return await Video.findById(videoId);
+        })
+    );
+
+    res.status(200).send(videos);
+})
+
+app.post('/deleteWatchList', async (req, res) => {
+    const { video_id, username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    if (user.watchList.includes(video_id.toString())) {
+        user.watchList = user.watchList.filter(id => id !== video_id.toString());
+        await user.save();
+        res.status(200).send("Video removed from watch list");
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)
 });

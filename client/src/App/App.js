@@ -8,6 +8,7 @@ import Liked from '../Components/Liked/Liked';
 import OTPValidation from '../Components/OTPValidation/OTPValidation';
 import ForgetPassword from '../Components/Login/ForgetPassword';
 import WatchLater from '../Components/WatchLater/WatchLater';
+import UserUploads from '../Components/UserUploads/UserUploads';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/OTPValidation" element={<OTPValidation />}></Route>
                     <Route path="/forgetpassword" element={<ForgetPassword />} />
                     <Route path="/watchLater" element={<WatchLater />} />
+                    <Route path="/useruploads" element={<UserUploads />} />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -57,7 +57,10 @@ function Home() {
                 <img
                     src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} className='video-thumbnail' />
                 <div className='video-details'>
-                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='home__main__video__play' />
+                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='home__main__video__play' onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(`/useruploads?searchuser=${video.uploadedBy}`);
+                    }} />
                     <div className='video-title-div'>
                         <p>{video.title}</p>
                         <p className='video-uploaded-by'>{video.uploadedBy}</p>
@@ -103,7 +106,7 @@ function Home() {
             <div className="home__main">
                 <div className='home__main_header'>
                     <input placeholder="Search for videos... (soon)" className='search-videos-input'></input>
-                    <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate("/profile")} /></div>
+                    <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate(`/useruploads?searchuser=${user}`)} /></div>
                 </div>
 
                 <div className='allvideos'>{renderVideos}</div>

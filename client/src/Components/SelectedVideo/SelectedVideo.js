@@ -226,7 +226,10 @@ function SelectedVideo() {
                 <div className='selected-video-details'>
                     <p className="selected-video-title">{video.title}</p>
                     <div className='creator-detail-div'>
-                        <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='selected__video__play' />
+                        <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='selected__video__play' onClick={(event) => {
+                            event.stopPropagation();
+                            navigate(`/useruploads?searchuser=${video.uploadedBy}`);
+                        }} />
                         <div className='creator-detail'>
                             <p className="selected-video-username">{video.uploadedBy}</p>
                             <p className="selected-video-subscribers">{subscribers} Subscribers</p>

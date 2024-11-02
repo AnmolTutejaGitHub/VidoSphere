@@ -338,6 +338,13 @@ app.post('/deleteWatchList', async (req, res) => {
     }
 })
 
+
+app.post('/userVideos', async (req, res) => {
+    const { username } = req.body;
+    const videos = await Video.find({ uploadedBy: username });
+    res.status(200).send(videos);
+})
+
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)
 });

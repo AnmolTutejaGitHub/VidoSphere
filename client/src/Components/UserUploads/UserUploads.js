@@ -88,7 +88,7 @@ function UserUploads() {
                     <p>{timeAgo(video.updatedAt)}</p>
                 </div>
             </div>
-            <CiEdit onClick={() => handleEditClick(video)} className="video-edit" />
+            {user == searchuser && <CiEdit onClick={() => handleEditClick(video)} className="video-edit" />}
         </div>
     })
 

@@ -345,6 +345,23 @@ app.post('/userVideos', async (req, res) => {
     res.status(200).send(videos);
 })
 
+
+app.post('/changeVideoTitle', async (req, res) => {
+    const { video_id, title } = req.body;
+    const video = await Video.findById(video_id);
+    video.title = title;
+    await video.save();
+    res.status(200).send("Video title changed");
+})
+
+app.post('/changeVideoDescription', async (req, res) => {
+    const { video_id, description } = req.body;
+    const video = await Video.findById(video_id);
+    video.description = description;
+    await video.save();
+    res.status(200).send("Video description changed");
+})
+
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)
 });

@@ -58,3 +58,7 @@
 .upload-username {
     color: gray;
 }
+
+.video-edit {
+    cursor: pointer;
+}

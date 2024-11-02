@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../Context/UserContext';
+import { CiEdit } from "react-icons/ci";
 import './UserUploads.css';
 
 function UserUploads() {
@@ -68,6 +69,10 @@ function UserUploads() {
         return "just now";
     }
 
+    const handleEditClick = (video) => {
+        navigate('/editVideo', { state: { video } });
+    };
+
     const renderVideos = UploadedVideos.map((video) => {
         return <div className="user-uploads">
             <img
@@ -83,7 +88,7 @@ function UserUploads() {
                     <p>{timeAgo(video.updatedAt)}</p>
                 </div>
             </div>
-
+            <CiEdit onClick={() => handleEditClick(video)} className="video-edit" />
         </div>
     })
 

@@ -1,0 +1,29 @@
+.edit-video-div {
+    padding: 1rem;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-video-h1 {
+    font-size: 30px;
+    padding-bottom: 3rem;
+}
+
+.edit-input {
+    width: 90%;
+    resize: vertical;
+    overflow-wrap: break-word;
+}
+
+.edit-form {
+    width: 80%;
+}
+
+.edit-thumbnail {
+    cursor: pointer;
+    padding-bottom: 4rem;
+}

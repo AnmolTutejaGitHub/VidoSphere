@@ -91,6 +91,7 @@
     border: none;
     font-weight: bolder;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .comments-div {

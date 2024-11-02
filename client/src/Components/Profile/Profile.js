@@ -91,7 +91,7 @@ function Profile() {
             <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
         </div>
 
-        <div className='profile'>
+        <div className='profile home__main'>
             {/* <button onClick={() => logout()} className='profile-logout nav-btn'>logout</button> */}
             <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' /></div>
             <p>{userObj?.name}</p>

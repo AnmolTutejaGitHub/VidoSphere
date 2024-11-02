@@ -139,7 +139,7 @@ function SelectedVideo() {
     const renderComments = comments.map((com) => {
         return <div className='comment-div'>
             <img src={`https://ui-avatars.com/api/?name=${com.user}`} className="comment-user-pic"
-                onClick={navigate(`/useruploads?searchuser=${com.user}`)}></img>
+                onClick={() => navigate(`/useruploads?searchuser=${com.user}`)}></img>
             <div>
                 <div className='comment-detail'>
                     <p className='comment-user'>{com.user}</p>

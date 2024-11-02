@@ -105,6 +105,7 @@
 .comment-user-pic {
     border-radius: 50%;
     height: 2.5rem;
+    cursor: pointer;
 }
 
 .comment-div {

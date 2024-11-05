@@ -3,14 +3,16 @@ import UserContext from '../../Context/UserContext';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
+import { Blocks } from 'react-loader-spinner';
 
 function Login() {
     const [EnteredUser, setEnteredUser] = useState('');
     const [EnteredEmail, setEnteredEmail] = useState('');
     const [EnteredPassword, setEnteredPassword] = useState('');
     const [Error, setError] = useState('');
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser, loading } = useContext(UserContext);
     const navigate = useNavigate();
+
 
     useEffect(() => {
         if (user) navigate('/home');
@@ -39,7 +41,20 @@ function Login() {
 
 
     return (<div className="login-page">
-        <div className='login-div'>
+
+        {loading && <div className='blocks-loader'>
+            <Blocks
+                height="80"
+                width="80"
+                color="#4fa94d"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true}
+            />
+        </div>}
+
+        {!loading && <div className='login-div'>
             <form className='login' onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                 <p>Login & Watch</p>
                 <input placeholder="Enter Username" onChange={(e) => { setEnteredUser(e.target.value) }} className='login-input' required></input>
@@ -50,7 +65,7 @@ function Login() {
                 <button type="submit" className='nav-btn login-btn'>Login</button>
                 {Error && <p className='error'>*{Error}</p>}
             </form>
-        </div>
+        </div>}
     </div>);
 }
 export default Login; 

@@ -11,6 +11,7 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { MdFileUpload } from "react-icons/md";
+import { Blocks } from 'react-loader-spinner';
 
 function Profile() {
     const notify = (text) => toast.success(text);
@@ -20,12 +21,14 @@ function Profile() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     async function getUserInfo() {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getuser`, {
             user: user
         })
         setUserObj(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -93,6 +96,17 @@ function Profile() {
 
         <div className='profile home__main'>
             {/* <button onClick={() => logout()} className='profile-logout nav-btn'>logout</button> */}
+            {loading && <div className='blocks-loader'>
+                <Blocks
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    visible={true}
+                />
+            </div>}
             <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' /></div>
             <p>{userObj?.name}</p>
             <p>{userObj?.email}</p>

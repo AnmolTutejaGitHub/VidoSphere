@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../Context/UserContext';
 import { CiEdit } from "react-icons/ci";
 import './UserUploads.css';
+import { Blocks } from 'react-loader-spinner';
 
 function UserUploads() {
     const [UploadedVideos, setUploadedVideos] = useState([]);
@@ -13,6 +14,7 @@ function UserUploads() {
     const navigate = useNavigate();
     const [subscribers, Setsubscribers] = useState(0);
     const { user, setUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(true);
 
     async function findHisVideos() {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/userVideos`, {
@@ -24,6 +26,7 @@ function UserUploads() {
     useEffect(() => {
         findHisVideos();
         getSubscribers();
+        setLoading(false);
     }, [])
 
     async function handleVideoClick(video) {
@@ -102,12 +105,23 @@ function UserUploads() {
 
 
     return (<div className="user-upload-main-div">
+        {loading && <div className='blocks-loader'>
+            <Blocks
+                height="80"
+                width="80"
+                color="#4fa94d"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true}
+            />
+        </div>}
         <div className="user-upload-pic-div"> <img src={`https://ui-avatars.com/api/?name=${searchuser}`} className='user-upload-user-pic' />
             <p className="upload-username">{searchuser}</p>
             <p className="selected-video-subscribers">{subscribers} Subscribers</p>
         </div>
         <div className="user-uploads-videos-div">
-            {UploadedVideos.length === 0 && <div>User has not Uploaded Anything</div>}
+            {!loading && UploadedVideos.length === 0 && <div>User has not Uploaded Anything</div>}
             {renderVideos}
         </div>
     </div>

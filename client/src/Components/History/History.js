@@ -9,17 +9,20 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { MdFileUpload } from "react-icons/md";
+import { Blocks } from 'react-loader-spinner';
 
 function History() {
     const { user, setUser } = useContext(UserContext);
     const [watched, setWatched] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     async function getHistory() {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getwatchedHistory`, {
             username: user
         });
         setWatched(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -88,8 +91,20 @@ function History() {
                 <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
             </div>
 
+            {loading && <div className='blocks-loader'>
+                <Blocks
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    visible={true}
+                />
+            </div>}
+
             <div className="watch-later-video-div home__main">
-                {watched.length === 0 && <div>Nothing in Watch History</div>}
+                {!loading && watched.length === 0 && <div>Nothing in Watch History</div>}
                 {renderWatchHistory}
             </div>
 

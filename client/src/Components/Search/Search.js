@@ -9,6 +9,8 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { MdFileUpload } from "react-icons/md";
+import { MagnifyingGlass } from 'react-loader-spinner';
+import './Search.css';
 
 function Search() {
     const [searchedVideos, setSearchedVideos] = useState([]);
@@ -18,12 +20,14 @@ function Search() {
     const query = new URLSearchParams(location.search);
     const term = query.get('term');
     const [searchTerm, setSearchTerm] = useState('');
+    const [loading, setLoading] = useState(true);
 
     async function getSearchedVideos() {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getSearchVideos`, {
             term: term
         })
         setSearchedVideos(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -128,7 +132,20 @@ function Search() {
             </div>
 
             <div className='allvideos'>
-                {searchedVideos.length == 0 && <p>No video with this title or Publisher</p>}
+                {loading &&
+                    <div className='search-loader'>
+                        <MagnifyingGlass
+                            visible={true}
+                            height="80"
+                            width="80"
+                            ariaLabel="magnifying-glass-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="magnifying-glass-wrapper"
+                            glassColor="#c0efff"
+                            color="#e15b64"
+                        />
+                    </div>}
+                {!loading && searchedVideos.length == 0 && <p>No video with this title or Publisher</p>}
                 {renderVideos}
             </div>
         </div>

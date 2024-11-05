@@ -11,17 +11,20 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { MdFileUpload } from "react-icons/md";
+import { Blocks } from 'react-loader-spinner';
 
 function WatchLater() {
     const { user, setUser } = useContext(UserContext);
     const [watchLater, setWatchLater] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     async function getWatchLater() {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getWatchList`, {
             username: user
         })
         setWatchLater(response.data);
+        setLoading(false);
     }
 
     async function deleteWatchLater(video) {
@@ -90,8 +93,20 @@ function WatchLater() {
                 <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
             </div>
 
+            {loading && <div className='blocks-loader'>
+                <Blocks
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    visible={true}
+                />
+            </div>}
+
             <div className="watch-later-video-div home__main">
-                {watchLater.length === 0 && <div>Nothing in WatchList</div>}
+                {!loading && watchLater.length === 0 && <div>Nothing in WatchList</div>}
                 {renderWatchList}
             </div>
 

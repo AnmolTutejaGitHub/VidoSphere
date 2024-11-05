@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { MdFileUpload } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
+import { Blocks } from 'react-loader-spinner';
 
 function Home() {
     const { user, setUser } = useContext(UserContext);
@@ -17,10 +18,12 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    const [loading, setLoading] = useState(true);
 
     async function fetchAllVideos() {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/allVideos`);
         SetallVideos(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -125,6 +128,18 @@ function Home() {
                     }}></input>
                     <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate(`/useruploads?searchuser=${user}`)} /></div>
                 </div>
+
+                {loading && <div className='blocks-loader'>
+                    <Blocks
+                        height="80"
+                        width="80"
+                        color="#4fa94d"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        visible={true}
+                    />
+                </div>}
 
                 <div className='allvideos'>{renderVideos}</div>
             </div>

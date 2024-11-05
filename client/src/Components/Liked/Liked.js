@@ -9,7 +9,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { MdFileUpload } from "react-icons/md";
-
+import { Blocks } from 'react-loader-spinner';
 
 // don't go on namings as i reused my home component
 // i should have made my home comonent as base component but it was too late
@@ -19,6 +19,7 @@ function Liked() {
     const [likedVideos, setLiked] = useState([]);
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!user) navigate("/");
@@ -30,6 +31,7 @@ function Liked() {
             username: user
         });
         setLiked(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -135,6 +137,18 @@ function Liked() {
                 }}></input>
                 <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate(`/useruploads?searchuser=${user}`)} /></div>
             </div>
+
+            {loading && <div className='blocks-loader'>
+                <Blocks
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    visible={true}
+                />
+            </div>}
 
             <div className='allvideos'>{renderLiked}</div>
         </div>

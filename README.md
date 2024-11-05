@@ -28,7 +28,7 @@ CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 ```
 
-### Frontend (`frontend/.env`):
+### Frontend (`clinet/.env`):
 ```plaintext
 REACT_APP_BACKEND_URL=
 ```

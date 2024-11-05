@@ -84,7 +84,7 @@ function Profile() {
 
         <div className="home__side-bar paddingTop">
             <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
-            <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
+            <div className='sidebar-nav-items' onClick={() => navigate('/history')}><FaHistory /><p>History</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")}><MdOutlineWatchLater /><p>Watch Later</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
             <div className='sidebar-nav-items  nav-current' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>

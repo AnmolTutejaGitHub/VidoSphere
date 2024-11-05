@@ -87,11 +87,19 @@ function Liked() {
     async function handleVideoClick(video) {
         video.views += 1;
         await updateVideoViews(video);
+        await addToWatchedHistroy(video);
         navigate(`/SelectedVideo`, { state: video });
     }
 
     async function updateVideoViews(video) {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/updateViews`, {
+            video_id: video._id
+        })
+    }
+
+    async function addToWatchedHistroy(video) {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addHistory`, {
+            username: user,
             video_id: video._id
         })
     }
@@ -107,7 +115,7 @@ function Liked() {
     return (<div className="home">
         <div className="home__side-bar">
             <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
-            <div className='sidebar-nav-items'><FaHistory /><p>History</p> <p className='soon'>soon</p></div>
+            <div className='sidebar-nav-items' onClick={() => navigate('/history')}><FaHistory /><p>History</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")}><MdOutlineWatchLater /><p>Watch Later</p></div>
             <div className='sidebar-nav-items nav-current' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>

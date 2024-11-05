@@ -362,6 +362,40 @@ app.post('/changeVideoDescription', async (req, res) => {
     res.status(200).send("Video description changed");
 })
 
+app.post('/getwatchedHistory', async (req, res) => {
+    const { username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    const videos = await Promise.all(
+        user.watchHistory.map(async (videoId) => {
+            return await Video.findById(videoId);
+        })
+    );
+
+    res.status(200).send(videos);
+})
+
+app.post('/deleteWatchHistory', async (req, res) => {
+    const { video_id, username } = req.body;
+    const user = await User.findOne({ name: username });
+
+    if (user.watchHistory.includes(video_id.toString())) {
+        user.watchHistory = user.watchHistory.filter(id => id !== video_id.toString());
+        await user.save();
+        res.status(200).send("Video removed from watched History");
+    }
+})
+
+app.post('/addHistory', async (req, res) => {
+    const { video_id, username } = req.body;
+    const user = await User.findOne({ name: username });
+    if (!user.watchHistory.includes(video_id.toString())) {
+        user.watchHistory.push(video_id.toString());
+        await user.save();
+    }
+    res.status(200).send("added");
+})
+
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)
 });

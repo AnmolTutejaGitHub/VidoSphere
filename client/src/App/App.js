@@ -10,6 +10,8 @@ import ForgetPassword from '../Components/Login/ForgetPassword';
 import WatchLater from '../Components/WatchLater/WatchLater';
 import UserUploads from '../Components/UserUploads/UserUploads';
 import EditVideo from '../Components/UserUploads/EditVideo/EditVideo';
+import History from '../Components/History/History';
+
 import './App.css';
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
                     <Route path="/watchLater" element={<WatchLater />} />
                     <Route path="/useruploads" element={<UserUploads />} />
                     <Route path="/editVideo" element={<EditVideo />} />
+                    <Route path='/history' element={<History />} />
                 </Routes>
             </BrowserRouter>
         </div>

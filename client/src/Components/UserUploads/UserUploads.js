@@ -29,11 +29,19 @@ function UserUploads() {
     async function handleVideoClick(video) {
         video.views += 1;
         await updateVideoViews(video);
+        await addToWatchedHistroy(video);
         navigate(`/SelectedVideo`, { state: video });
     }
 
     async function updateVideoViews(video) {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/updateViews`, {
+            video_id: video._id
+        })
+    }
+
+    async function addToWatchedHistroy(video) {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addHistory`, {
+            username: user,
             video_id: video._id
         })
     }

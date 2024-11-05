@@ -21,12 +21,12 @@ function UserUploads() {
             username: searchuser
         })
         setUploadedVideos(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
         findHisVideos();
         getSubscribers();
-        setLoading(false);
     }, [])
 
     async function handleVideoClick(video) {

@@ -116,14 +116,19 @@ function UserUploads() {
                 visible={true}
             />
         </div>}
-        <div className="user-upload-pic-div"> <img src={`https://ui-avatars.com/api/?name=${searchuser}`} className='user-upload-user-pic' />
-            <p className="upload-username">{searchuser}</p>
-            <p className="selected-video-subscribers">{subscribers} Subscribers</p>
-        </div>
-        <div className="user-uploads-videos-div">
-            {!loading && UploadedVideos.length === 0 && <div>User has not Uploaded Anything</div>}
-            {renderVideos}
-        </div>
+
+        {!loading &&
+            <>
+                <div className="user-upload-pic-div"> <img src={`https://ui-avatars.com/api/?name=${searchuser}`} className='user-upload-user-pic' />
+                    <p className="upload-username">{searchuser}</p>
+                    <p className="selected-video-subscribers">{subscribers} Subscribers</p>
+                </div>
+                <div className="user-uploads-videos-div">
+                    {!loading && UploadedVideos.length === 0 && <div>User has not Uploaded Anything</div>}
+                    {renderVideos}
+                </div>
+            </>
+        }
     </div>
     );
 }

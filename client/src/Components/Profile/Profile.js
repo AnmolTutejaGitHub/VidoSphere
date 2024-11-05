@@ -94,19 +94,19 @@ function Profile() {
             <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
         </div>
 
-        <div className='profile home__main'>
-            {/* <button onClick={() => logout()} className='profile-logout nav-btn'>logout</button> */}
-            {loading && <div className='blocks-loader'>
-                <Blocks
-                    height="80"
-                    width="80"
-                    color="#4fa94d"
-                    ariaLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    visible={true}
-                />
-            </div>}
+        {loading && <div className='blocks-loader'>
+            <Blocks
+                height="80"
+                width="80"
+                color="#4fa94d"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true}
+            />
+        </div>}
+
+        {!loading && <div className='profile home__main'>
             <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' /></div>
             <p>{userObj?.name}</p>
             <p>{userObj?.email}</p>
@@ -125,7 +125,7 @@ function Profile() {
             <div className='important-info'>*Accepted Formats are 'mp4', 'mov', 'avi', 'mkv', 'wmv', 'flv' And file Should not exceed 100MB</div>
             <div className='important-info'> ** lol Vercel’s request body limit is around 4 MB for serverless functions.
                 Unless I change the deployment server , Video upload limit is 4MB.</div>
-        </div>
+        </div>}
     </div>)
 }
 export default Profile;

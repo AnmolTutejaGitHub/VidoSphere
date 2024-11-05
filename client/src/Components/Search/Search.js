@@ -1,40 +1,34 @@
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../Context/UserContext';
-import axios from 'axios';
-import './Liked.css';
+import { useLocation } from 'react-router-dom';
 import { FaHome } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
 import { MdFileUpload } from "react-icons/md";
 
-
-// don't go on namings as i reused my home component
-// i should have made my home comonent as base component but it was too late
-// a lot of refactoring would be required 
-function Liked() {
-    const { user, setUser } = useContext(UserContext);
-    const [likedVideos, setLiked] = useState([]);
+function Search() {
+    const [searchedVideos, setSearchedVideos] = useState([]);
     const navigate = useNavigate();
+    const { user, setUser } = useContext(UserContext);
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const term = query.get('term');
     const [searchTerm, setSearchTerm] = useState('');
 
-    useEffect(() => {
-        if (!user) navigate("/");
-        return;
-    }, [])
-
-    async function getLikedVideos() {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getLikedVideos`, {
-            username: user
-        });
-        setLiked(response.data);
+    async function getSearchedVideos() {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/getSearchVideos`, {
+            term: term
+        })
+        setSearchedVideos(response.data);
     }
 
     useEffect(() => {
-        getLikedVideos();
-    }, [])
+        getSearchedVideos();
+    }, [term])
 
     function timeAgo(dateString) {
         const now = new Date();
@@ -59,31 +53,6 @@ function Liked() {
         }
         return "just now";
     }
-
-
-    const renderLiked = likedVideos.map((video) => {
-        return (
-            <div onClick={() => handleVideoClick(video)} className='video-div'>
-                <img
-                    src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} className='video-thumbnail' />
-                <div className='video-details'>
-                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='home__main__video__play' onClick={(event) => {
-                        event.stopPropagation();
-                        navigate(`/useruploads?searchuser=${video.uploadedBy}`);
-                    }} />
-                    <div className='video-title-div'>
-                        <p>{video.title}</p>
-                        <p className='video-uploaded-by'>{video.uploadedBy}</p>
-                        <div className='video-views-date-div'>
-                            <p className='video-views-date'>{video.views} views</p>
-                            <p className='video-views-date'>. {timeAgo(video.updatedAt)}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    });
-
 
     async function handleVideoClick(video) {
         video.views += 1;
@@ -116,13 +85,35 @@ function Liked() {
         navigate(`/search?term=${searchTerm}`);
     }
 
+    const renderVideos = searchedVideos.map((video) => {
+        return (
+            <div onClick={() => handleVideoClick(video)} className='video-div'>
+                <img
+                    src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} className='video-thumbnail' />
+                <div className='video-details'>
+                    <img src={`https://ui-avatars.com/api/?name=${video.uploadedBy}`} className='home__main__video__play' onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(`/useruploads?searchuser=${video.uploadedBy}`);
+                    }} />
+                    <div className='video-title-div'>
+                        <p>{video.title}</p>
+                        <p className='video-uploaded-by'>{video.uploadedBy}</p>
+                        <div className='video-views-date-div'>
+                            <p className='video-views-date'>{video.views} views</p>
+                            <p className='video-views-date'>. {timeAgo(video.updatedAt)}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    });
 
     return (<div className="home">
         <div className="home__side-bar">
             <div className='sidebar-nav-items' onClick={() => navigate('/home')}><FaHome /><p>Home</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/history')}><FaHistory /><p>History</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate("/watchLater")}><MdOutlineWatchLater /><p>Watch Later</p></div>
-            <div className='sidebar-nav-items nav-current' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
+            <div className='sidebar-nav-items' onClick={() => navigate('/like')} ><AiOutlineLike /><p>Liked</p></div>
             <div className='sidebar-nav-items' onClick={() => navigate('/profile')} ><MdFileUpload /><p>Upload</p></div>
             <div className='sidebar-nav-items' onClick={logout} ><MdLogout /><p>Logout</p></div>
         </div>
@@ -136,8 +127,11 @@ function Liked() {
                 <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate(`/useruploads?searchuser=${user}`)} /></div>
             </div>
 
-            <div className='allvideos'>{renderLiked}</div>
+            <div className='allvideos'>
+                {searchedVideos.length == 0 && <p>No video with this title or Publisher</p>}
+                {renderVideos}
+            </div>
         </div>
     </div >);
 }
-export default Liked;
+export default Search;

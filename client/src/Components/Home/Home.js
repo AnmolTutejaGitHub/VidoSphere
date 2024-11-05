@@ -14,6 +14,7 @@ import { MdLogout } from "react-icons/md";
 function Home() {
     const { user, setUser } = useContext(UserContext);
     const [allVideos, SetallVideos] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -101,6 +102,10 @@ function Home() {
         navigate('/');
     }
 
+    function handleSearch() {
+        navigate(`/search?term=${searchTerm}`);
+    }
+
     return (
         <div className="home">
             <div className="home__side-bar">
@@ -113,7 +118,11 @@ function Home() {
             </div>
             <div className="home__main">
                 <div className='home__main_header'>
-                    <input placeholder="Search for videos... (soon)" className='search-videos-input'></input>
+                    <input placeholder="Search for videos..." className='search-videos-input' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch();
+                        }
+                    }}></input>
                     <div><img src={`https://ui-avatars.com/api/?name=${user}`} className='home__main_profile' onClick={() => navigate(`/useruploads?searchuser=${user}`)} /></div>
                 </div>
 

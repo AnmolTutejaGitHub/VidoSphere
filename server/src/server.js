@@ -396,6 +396,19 @@ app.post('/addHistory', async (req, res) => {
     res.status(200).send("added");
 })
 
+app.post('/getSearchVideos', async (req, res) => {
+    const { term } = req.body;
+
+    const allVideos = await Video.find({});
+    const MatchedVideos = allVideos.filter(video => {
+        const newterm = term.toLowerCase().replace(/\s+/g, '').trim();
+        const newTitle = (video.title).toLowerCase().replace(/\s+/g, '').trim();
+        return newTitle.includes(newterm) || (video.uploadedBy).toLowerCase().includes(newterm);
+    });
+
+    res.status(200).send(MatchedVideos);
+})
+
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}`)
 });

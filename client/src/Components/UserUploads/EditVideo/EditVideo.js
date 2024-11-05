@@ -10,6 +10,7 @@ function EditVideo() {
     const location = useLocation();
     const video = location.state.video;
     const notify = (text) => toast.success(text);
+    const notifyError = (text) => toast.error(text);
     const navigate = useNavigate();
 
     const [title, setTitle] = useState(video.title);
@@ -61,6 +62,13 @@ function EditVideo() {
         })
     }
 
+    async function handleVideoDelete() {
+        // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/deleteVideo`, {
+        //     video_id: video._id
+        // })
+        notifyError("Don't want to handle when this video._id becomes null in User Model Lol. Will code it later");
+    }
+
     return (
         <div className="edit-video-div">
             <ToastContainer className="toast-container" />
@@ -97,6 +105,8 @@ function EditVideo() {
                     </button>
                 )}
             </form>
+
+            <div><button className="delete-video-btn" onClick={handleVideoDelete}>Delete</button></div>
         </div>
     );
 }

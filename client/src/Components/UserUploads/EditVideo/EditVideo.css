@@ -27,3 +27,12 @@
     cursor: pointer;
     padding-bottom: 4rem;
 }
+
+.delete-video-btn {
+    margin-top: 50px;
+    padding: 8px;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+}

@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import { Blocks } from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
     const [EnteredUser, setEnteredUser] = useState('');
@@ -12,6 +14,7 @@ function Login() {
     const [Error, setError] = useState('');
     const { user, setUser, loading } = useContext(UserContext);
     const navigate = useNavigate();
+    const notifyError = (text) => toast.error(text);
 
 
     useEffect(() => {
@@ -35,7 +38,8 @@ function Login() {
                 navigate('/OTPValidation', { state: { email: EnteredEmail } });
             }
         } catch (error) {
-            setError(error?.response?.data?.error || "Some error Occurred");
+            //setError(error?.response?.data?.error || "Some error Occurred");
+            notifyError(error?.response?.data?.error || "Some error Occurred");
         }
     }
 
@@ -55,6 +59,7 @@ function Login() {
         </div>}
 
         {!loading && <div className='login-div'>
+            <ToastContainer className="toast-container" />
             <form className='login' onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                 <p>Login & Watch</p>
                 <input placeholder="Enter Username" onChange={(e) => { setEnteredUser(e.target.value) }} className='login-input' required></input>

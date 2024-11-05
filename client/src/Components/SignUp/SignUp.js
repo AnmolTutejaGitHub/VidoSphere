@@ -14,9 +14,10 @@ function SignUp() {
     const [Error, setError] = useState('');
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
+    const notify = () => toast.success("Sign up Successful!");
+    const notifyError = (text) => toast.error(text);
 
     async function SignUp() {
-        const notify = () => toast.success("Sign up Successful!");
         try {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signups`, {
                 email: EnteredEmail,
@@ -36,7 +37,8 @@ function SignUp() {
 
             }
         } catch (error) {
-            setError(error?.response?.data?.error || "Some error Occurred");
+            //setError(error?.response?.data?.error || "Some error Occurred");
+            notifyError(error?.response?.data?.error || "Some error Occurred");
         }
     }
 
